@@ -1,8 +1,6 @@
 # Load the library
 
-library(ggplot2)
-library(randomForest)
-library(party)
+library(randomForest, ROCR, party)
 
 # Load the data
 
@@ -54,14 +52,44 @@ cleanData <- function(data) {
 titanic <- cleanData(titanic)
 titanic <- subset(titanic, select = -c(PassengerId, Name, Ticket))
 
-# Build model
+# 60% training data
+
+set.seed(777)
+indexes <-
+  sample(1:nrow(titanic), size = round(0.6 * nrow(titanic)), 0)
+
+testData <- titanic[indexes, ]
+trainData <- titanic[-indexes, ]
+
+# Build model on the train data
 rf <- randomForest(
   Survived ~ . - Cabin,
-  data = titanic,
+  data = testData,
   ntree = 1000,
-  mtry = round(sqrt(length(names(titanic))),0),
+  mtry = 2,
   importance = TRUE
 )
-rf
-plot(rf, log = "y")
+
+plot(rf, log = "y", main = "Variable Important")
 varImpPlot(rf)
+rf
+
+# Predict on the test data
+pre <- predict(rf, testData)
+table(actual = testData$Survived , predict = pre)
+
+# Calculate the accuracy of the model on test data
+mean(testData$Survived == pre)
+
+# prediction for ROC curve
+preROC <- predict(rf, testData, type = "prob")
+
+classes <- unique(testData$Survived)
+
+for (i in 1:2){
+  trueValues <- ifelse(testData$Survived == classes[i], 1, 0)
+  pred <- prediction(preROC[,i], trueValues)
+  
+}
+
+pred <- prediction(preROC[,2], )
