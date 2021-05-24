@@ -1,5 +1,5 @@
 ## Cool Projects
-I did some cool projects during my free time, just for my learning purpose.
+I did some cool projects during my free time, just for my learning purpose, so please forgive me for my typo or errors.
 
 - Titanic survival
 - Car selling prediction
@@ -7,4 +7,4 @@ I did some cool projects during my free time, just for my learning purpose.
 - Patient segmentation
 - Emotional prediction
 
-and the list goes on... (updated frequently here)
+and the list goes on... (frequently updated here)
