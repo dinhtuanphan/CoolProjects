@@ -6,6 +6,6 @@ I did some cool projects during my free time, just for my learning purpose, so p
 - US storm prediction
 - Patient segmentation
 - Emotional prediction
-- Monte Carlo simulation
+- Monte Carlo simulations
 
 and the list goes on... (frequently updated here)
